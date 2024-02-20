@@ -11,7 +11,9 @@ import quiz.Question;
 public class QuizReader {
     private ArrayList<Question> QuestionsList = new ArrayList<>();
 
-    public QuizReader(File path) {
+    public QuizReader() {};
+
+    public void readFolder(File path) {
         File f = new File(path.toString());
 
         try (Scanner input = new Scanner(f)) {
