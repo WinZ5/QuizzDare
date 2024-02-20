@@ -2,10 +2,10 @@ package reader;
 
 import java.io.File;
 
-public class FolderReader {
+public class CategoryReader {
     private File directory;
 
-    public FolderReader(File directory) {
+    public CategoryReader(File directory) {
         this.directory = directory;
     }
 
