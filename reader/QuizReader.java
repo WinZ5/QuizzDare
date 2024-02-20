@@ -29,7 +29,7 @@ public class QuizReader {
                 for (int i = 0; i <= tokenizer.countTokens() + 1; i++) {
                     choice.add(tokenizer.nextToken().trim());
                 }
-                String answer = tokenizer.nextToken().trim();
+                char answer = tokenizer.nextToken().trim().charAt(0);
 
                 this.QuestionsList.add(new Question(question, choice, answer));
             }

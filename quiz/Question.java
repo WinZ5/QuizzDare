@@ -5,9 +5,9 @@ import java.util.ArrayList;
 public class Question {
     private String question;
     private ArrayList<String> choies = new ArrayList<>();
-    private String answer;
+    private char answer;
 
-    public Question(String question, ArrayList<String> choices, String answer) {
+    public Question(String question, ArrayList<String> choices, char answer) {
         this.question = question;
         this.choies = choices;
         this.answer = answer;
@@ -21,12 +21,12 @@ public class Question {
         return this.choies;
     }
 
-    public String getAnswer() {
+    public char getAnswer() {
         return this.answer;
     }
 
-    public boolean checkAnswer(String answer) {
-        if ((answer.toLowerCase()).equals(this.answer.toLowerCase())) {
+    public boolean checkAnswer(char answer) {
+        if (answer == this.answer) {
             return true;
         } else {
             return false;
