@@ -18,7 +18,7 @@ public class TestQuizReader {
         }
 
         for (Question question : quiz.getQuestion()) {
-            System.out.println(question.getQuestion());
+            System.out.println(question.getQuestion() + question.getChoices() + question.getAnswer());
         }
     }
 }
