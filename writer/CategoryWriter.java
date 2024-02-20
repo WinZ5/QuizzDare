@@ -14,6 +14,7 @@ public class CategoryWriter {
 
     public void createCategory(String name) throws IOException {
         File filePath = new File(path + File.separator + name + ".csv");
+
         if (filePath.createNewFile()) {
             FileWriter writer = new FileWriter(filePath, true);
             BufferedWriter buffer = new BufferedWriter(writer);
