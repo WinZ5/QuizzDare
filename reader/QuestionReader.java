@@ -9,12 +9,13 @@ import java.util.StringTokenizer;
 import quiz.Question;
 
 public class QuestionReader {
-    private ArrayList<Question> QuestionsList = new ArrayList<>();
 
     public QuestionReader() {};
 
-    public void readFolder(File path) {
+    public ArrayList<Question> readFile(File path) {
         File f = new File(path.toString());
+
+        ArrayList<Question> QuestionsList = new ArrayList<>();
 
         try (Scanner input = new Scanner(f)) {
             input.nextLine();
@@ -31,14 +32,12 @@ public class QuestionReader {
                 }
                 char answer = tokenizer.nextToken().trim().charAt(0);
 
-                this.QuestionsList.add(new Question(question, choice, answer));
+                QuestionsList.add(new Question(question, choice, answer));
             }
         } catch (FileNotFoundException e) {
             System.out.println("Error: File not found");
         }
-    }
 
-    public ArrayList<Question> getQuestion() {
-        return this.QuestionsList;
+        return QuestionsList;
     }
 }
