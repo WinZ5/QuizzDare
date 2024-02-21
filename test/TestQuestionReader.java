@@ -1,6 +1,7 @@
 package test;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 import quiz.Question;
@@ -8,7 +9,7 @@ import reader.CategoryReader;
 import reader.QuestionReader;
 
 public class TestQuestionReader {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
         CategoryReader reader = new CategoryReader();
         QuestionReader quizreader = new QuestionReader();
         

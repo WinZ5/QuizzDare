@@ -12,32 +12,30 @@ public class QuestionReader {
 
     public QuestionReader() {};
 
-    public ArrayList<Question> readFile(File path) {
-        File f = new File(path.toString());
+    public ArrayList<Question> readFile(File path) throws FileNotFoundException {
+        ArrayList<Question> questionsList = new ArrayList<>();
 
-        ArrayList<Question> QuestionsList = new ArrayList<>();
+        Scanner input = new Scanner(path);
 
-        try (Scanner input = new Scanner(f)) {
-            input.nextLine();
+        input.nextLine();
 
-            while (input.hasNextLine()) {
-                String dataLine = input.nextLine();
-                StringTokenizer tokenizer = new StringTokenizer(dataLine.trim(), ",");
+        while (input.hasNextLine()) {
+            String dataLine = input.nextLine();
+            StringTokenizer tokenizer = new StringTokenizer(dataLine.trim(), ",");
 
-                String question = tokenizer.nextToken().trim();
-                ArrayList<String> choice = new ArrayList<>();
+            String question = tokenizer.nextToken().trim();
+            ArrayList<String> choice = new ArrayList<>();
 
-                for (int i = 0; i <= tokenizer.countTokens() + 1; i++) {
-                    choice.add(tokenizer.nextToken().trim());
-                }
-                char answer = tokenizer.nextToken().trim().charAt(0);
-
-                QuestionsList.add(new Question(question, choice, answer));
+            for (int i = 0; i <= tokenizer.countTokens() + 1; i++) {
+                choice.add(tokenizer.nextToken().trim());
             }
-        } catch (FileNotFoundException e) {
-            System.out.println("Error: File not found");
+            char answer = tokenizer.nextToken().trim().charAt(0);
+
+            questionsList.add(new Question(question, choice, answer));
         }
 
-        return QuestionsList;
+        input.close();
+
+        return questionsList;
     }
 }
