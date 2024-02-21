@@ -9,8 +9,7 @@ public class TestCategoryReader {
     public static void main(String[] args) {
         CategoryReader reader = new CategoryReader();
         
-        reader.readFolder(new File("test" + File.separator + "testdata"));
-        ArrayList<File> folderList = reader.getFiles();
+        ArrayList<File> folderList = reader.readFolder(new File("test" + File.separator + "testdata"));
 
         for (File file : folderList) {
             System.out.println(file);

@@ -9,13 +9,9 @@ import remover.CategoryRemover;
 public class TestCategoryRemover {
     public static void main(String[] args) {
         CategoryReader reader = new CategoryReader();
-        
-        reader.readFolder(new File("test" + File.separator + "testdata"));
-
         CategoryRemover remover = new CategoryRemover();
 
-        ArrayList<File> folderList = reader.getFiles();
-
+        ArrayList<File> folderList = reader.readFolder(new File("test" + File.separator + "testdata"));
         System.out.println("Before deletion: ");
         for (File file : folderList) {
             System.out.println(file);
@@ -24,9 +20,7 @@ public class TestCategoryRemover {
         remover.remove(folderList.get(1));
 
         System.out.println("After deletion: ");
-        reader.clearFolderList();
-        reader.readFolder(new File("test" + File.separator + "testdata"));
-        folderList = reader.getFiles();
+        folderList = reader.readFolder(new File("test" + File.separator + "testdata"));
         for (File file : folderList) {
             System.out.println(file);
         }

@@ -10,10 +10,9 @@ import reader.QuestionReader;
 public class TestQuestionReader {
     public static void main(String[] args) {
         CategoryReader reader = new CategoryReader();
-        reader.readFolder(new File("data" + File.separator + "quiz"));
         QuestionReader quiz = new QuestionReader();
         
-        ArrayList<File> folderList = reader.getFiles();
+        ArrayList<File> folderList = reader.readFolder(new File("data" + File.separator + "quiz"));
 
         for (File folder : folderList) {
             quiz.readFolder(folder);
