@@ -1,22 +1,27 @@
 package reader;
 
 import java.io.File;
+import java.util.ArrayList;
 
 public class CategoryReader {
-    private File directory;
+    private ArrayList<File> FolderList = new ArrayList<>();
 
-    public CategoryReader(File directory) {
-        this.directory = directory;
-    }
+    public CategoryReader() { }
 
-    public File[] getFilesPath() {
+    public void readFolder(File directory) {
         // Create new array with path of all files in the directory
-        File[] filesPath = this.directory.listFiles();
-        // Return the list of path of all files
-        return filesPath;
+        File[] filesPath = directory.listFiles();
+
+        for (File file : filesPath) {
+            FolderList.add(file);
+        }
     }
 
-    public void setDirectory(File directory) {
-        this.directory = directory;
+    public void clearFolderList() {
+        FolderList.clear();
+    }
+
+    public ArrayList<File> getFiles() {
+        return FolderList;
     }
 }
