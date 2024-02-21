@@ -11,7 +11,21 @@ import reader.QuestionReader;
 import writer.QuestionWriter;
 
 public class QuestionRemover {
-    public QuestionRemover() { }
+    public QuestionRemover() {
+    }
+
+    public boolean checkChoice(ArrayList<String> choice1, ArrayList<String> choice2) {
+        boolean identical = true;
+
+        for (int i = 0; i < choice1.size(); i++) {
+            if (!(choice1.get(i).equals(choice2.get(i)))) {
+                identical = false;
+                break;
+            }
+        }
+
+        return identical;
+    }
 
     public void remove(File targetCategory, Question targetQuestion) throws IOException {
         File tempFile = new File("temporary.csv");
@@ -25,17 +39,19 @@ public class QuestionRemover {
         BufferedWriter buffer = new BufferedWriter(writer);
 
         for (Question question : questionList) {
-            if (!(question.getQuestion().equals(targetQuestion.getQuestion()))) {
+            if (!((question.getQuestion().equals(targetQuestion.getQuestion()))
+                    && checkChoice(question.getChoices(), targetQuestion.getChoices())
+                    && (question.getAnswer() == targetQuestion.getAnswer()))) {
                 tempQuestionList.add(question);
             }
         }
 
         buffer.write("Question, a, b, c, d, answer");
         buffer.close();
-        
+
         for (Question question : tempQuestionList) {
             questionWriter.append(question.getQuestion(), question.getChoices(), question.getAnswer());
-        } 
+        }
 
         targetCategory.delete();
         tempFile.renameTo(targetCategory);
