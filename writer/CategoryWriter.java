@@ -21,10 +21,8 @@ public class CategoryWriter {
 
             buffer.write("Question, a, b, c, d, answer");
             buffer.close();
-
-            System.out.println("New category added");
         } else {
-            System.out.println("Category alredy exist");
+            System.out.println("Error: Category alredy exist");
         } 
     }
 }
