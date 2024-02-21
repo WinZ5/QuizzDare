@@ -4,7 +4,9 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import quiz.User;
 import reader.CategoryReader;
+import reader.ScoreReader;
 import writer.ScoreWriter;
 
 public class TestScoreWriter {
@@ -16,8 +18,25 @@ public class TestScoreWriter {
         File target = new File("test" + File.separator + "testleaderboard" + File.separator + folderList.get(0).getName());
         
         ScoreWriter scoreWriter = new ScoreWriter(target);
+        ScoreReader scoreReader = new ScoreReader();
 
+        ArrayList<User> usersList =  scoreReader.readFile(target);
+
+        System.out.println("Before append: ");
+        for (User user : usersList) {
+            System.out.println(user.getName() + ", " + user.getScore());
+        }
         scoreWriter.append("Jame", 5);
-        System.out.println(target);
+        usersList = scoreReader.readFile(target);
+        System.out.println("After append: ");
+        for (User user : usersList) {
+            System.out.println(user.getName() + ", " + user.getScore());
+        }
+        scoreWriter.update(usersList.get(0), 0);
+        usersList = scoreReader.readFile(target);
+        System.out.println("After update: ");
+        for (User user : usersList) {
+            System.out.println(user.getName() + ", " + user.getScore());
+        }
     }
 }
