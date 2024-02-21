@@ -16,6 +16,20 @@ public class ScoreWriter {
         this.path = path;
     }
 
+    public void newFile(File path, String name) throws IOException {
+        File filePath = new File(path + File.separator + name + ".csv");
+
+        if (filePath.createNewFile()) {
+            FileWriter writer = new FileWriter(filePath, true);
+            BufferedWriter buffer = new BufferedWriter(writer);
+
+            buffer.write("Username, Score");
+            buffer.close();
+        } else {
+            System.out.println("Error: File already exist");
+        }
+    }
+
     public void append(String username, int score) throws IOException {
         FileWriter writer = new FileWriter(path, true);
         BufferedWriter buffer = new BufferedWriter(writer);

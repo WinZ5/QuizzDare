@@ -22,6 +22,8 @@ public class TestScoreWriter {
 
         ArrayList<User> usersList =  scoreReader.readFile(target);
 
+        scoreWriter.newFile(new File("test" + File.separator + "testleaderboard" + File.separator), "test");  
+
         System.out.println("Before append: ");
         for (User user : usersList) {
             System.out.println(user.getName() + ", " + user.getScore());
