@@ -1,12 +1,14 @@
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import core.Leaderboard;
 import core.Quiz;
 import util.Util;
 
 public class QuizDare {
-    public static void inputMenu() throws FileNotFoundException {
+    public static void inputMenu() throws FileNotFoundException, IOException {
         Scanner input = new Scanner(System.in);
 
         try {
@@ -23,7 +25,7 @@ public class QuizDare {
                     break;
 
                 case 3:
-                    System.out.println("Leaderboard");
+                    Leaderboard.leaderboardMenu();
                     break;
 
                 case 4:
@@ -43,7 +45,7 @@ public class QuizDare {
         input.close();
     }
 
-    public static void main(String[] args) throws FileNotFoundException {
+    public static void main(String[] args) throws FileNotFoundException, IOException {
         Util.clear();
 
         System.out.println("   ____        _     _____                 ");

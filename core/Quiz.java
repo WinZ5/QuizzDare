@@ -2,6 +2,7 @@ package core;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -13,6 +14,7 @@ import util.Util;
 
 public class Quiz {
     private static Scanner input = new Scanner(System.in);
+    private static File category;
     private static int problemIndex;
     private static char[] userAnswer;
     private static char[] correctAnswer;
@@ -26,7 +28,7 @@ public class Quiz {
         }
     }
 
-    public static void navigateQuiz(ArrayList<Question> questionList) {
+    public static void navigateQuiz(ArrayList<Question> questionList) throws FileNotFoundException, IOException {
         Question question = questionList.get(problemIndex);
 
         printQuestion(question);
@@ -65,7 +67,7 @@ public class Quiz {
     }
 
     
-    public static void answerQuestion(ArrayList<Question> questionList, String answer) {
+    public static void answerQuestion(ArrayList<Question> questionList, String answer) throws FileNotFoundException, IOException {
         while (true) {
             if ((int) answer.charAt(0) < ('a' + questionList.get(problemIndex).getChoices().size())
             && (int) answer.charAt(0) >= 97) {
@@ -87,12 +89,16 @@ public class Quiz {
         }
     }
     
-    public static void endQuiz(ArrayList<Question> questionList) {
+    public static void endQuiz(ArrayList<Question> questionList) throws FileNotFoundException, IOException {
         int score = checkAnswer(questionList);
         int maxscore = questionList.size();
 
         Util.clear();
-        System.out.printf("%5s Score: %d / %d%n"," ", score, maxscore);
+        System.out.printf("%6s Score: %d / %d%n"," ", score, maxscore);
+        System.out.println();
+        Leaderboard.showLeaderboard(new File("data" + File.separator + "leaderboard" + File.separator + category.getName()), 5);
+        System.out.println();
+        Leaderboard.saveConsent(score);
     }
 
     public static int checkAnswer(ArrayList<Question> questionList) {
@@ -108,7 +114,7 @@ public class Quiz {
         return score;
     }
 
-    public static void startQuiz(File category) throws FileNotFoundException {
+    public static void startQuiz() throws FileNotFoundException, IOException {
         QuestionReader questionReader = new QuestionReader();
         ArrayList<Question> questionList = questionReader.readFile(category);
         userAnswer = new char[questionList.size()];
@@ -121,11 +127,9 @@ public class Quiz {
         problemIndex = 0;
 
         navigateQuiz(questionList);
-        System.out.println();
-        Leaderboard.showLeaderboard(new File("data" + File.separator + "leaderboard" + File.separator + category.getName()), 5);
     }
 
-    public static void startQuizMenu() throws FileNotFoundException {
+    public static void startQuizMenu() throws FileNotFoundException, IOException {
         CategoryReader categoryReader = new CategoryReader();
         ArrayList<File> categoryList = categoryReader.readFolder(new File("data" + File.separator + "quiz"));
 
@@ -139,17 +143,20 @@ public class Quiz {
         
         while (true) {
             System.out.print("Choose: ");
-            int operation = input.nextInt();
-
+            
             try {
-                if (!(operation <= (categoryList.size() - 1))) {
-                    System.out.println("Error: Invalid input");
+
+                int operation = input.nextInt();
+
+                if (!(operation <= categoryList.size()) && (operation > 0)) {
+                    System.out.println("Error: Invalid Input");
                 } else {
-                    startQuiz((categoryList.get(operation - 1)));
+                    category = categoryList.get(operation - 1);
+                    startQuiz();
                     break;
                 }
             } catch (InputMismatchException e) {
-                System.out.println("Error: Invalid input");
+                System.out.println("Error: Invalid Input");
             }
         }
     }

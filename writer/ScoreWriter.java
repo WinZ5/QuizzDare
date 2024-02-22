@@ -41,7 +41,7 @@ public class ScoreWriter {
         buffer.close();
     }
 
-    public void update(User targetuser, int score) throws IOException {
+    public void update(String username, int score) throws IOException {
         File tempFile = new File("temparary.csv");
 
         ScoreReader scoreReader = new ScoreReader();
@@ -53,10 +53,10 @@ public class ScoreWriter {
         BufferedWriter buffer = new BufferedWriter(writer);
 
         for (User user : usersList) {
-            if (!(user.getName().equals(targetuser.getName()))) {
+            if (!(user.getName().equals(username))) {
                 tempUsersList.add(user);
             } else {
-                tempUsersList.add(new User(targetuser.getName(), score));
+                tempUsersList.add(new User(username, score));
             }
         }
 

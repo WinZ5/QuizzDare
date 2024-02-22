@@ -34,7 +34,7 @@ public class TestScoreWriter {
         for (User user : usersList) {
             System.out.println(user.getName() + ", " + user.getScore());
         }
-        scoreWriter.update(usersList.get(0), 0);
+        scoreWriter.update(usersList.get(0).getName(), 0);
         usersList = scoreReader.readFile(target);
         System.out.println("After update: ");
         for (User user : usersList) {
