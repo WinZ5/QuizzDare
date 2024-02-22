@@ -1,67 +1,58 @@
-import java.io.File;
-import java.util.ArrayList;
+import java.io.FileNotFoundException;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
-import quiz.Question;
-import reader.CategoryReader;
-import reader.QuestionReader;
-import ui.Screen;
+import core.Quiz;
+import util.Util;
 
 public class QuizDare {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
         Scanner input = new Scanner(System.in);
-        CategoryReader QuizFolder = new CategoryReader();
 
-        ArrayList<File> Categories = QuizFolder.readFolder(new File("data" + File.separator + "quiz"));
+        Util.clear();
 
-        for (int i = 0; i < Categories.size(); i++) {
-            System.out.println(i + 1 + ": " + Categories.get(i).getName().replaceFirst("[.][^.]+$", ""));
-        }
-
+        System.out.println("   ____        _     _____                 ");
+        System.out.println("  / __ \\      (_)   |  __ \\                ");
+        System.out.println(" | |  | |_   _ _ ___| |  | | __ _ _ __ ___ ");
+        System.out.println(" | |  | | | | | |_  / |  | |/ _` | '__/ _ \\");
+        System.out.println(" | |__| | |_| | |/ /| |__| | (_| | | |  __/");
+        System.out.println("  \\___\\_\\\\__,_|_/___|_____/ \\__,_|_|  \\___|");
+        // System.out.println("QuizDare");
+        System.out.println("Welcome to QuizDare to begin input operation number (1 - 4)");
+        System.out.println();
+        System.out.println("1. Start Quiz");
+        System.out.println("2. Random Quiz");
+        System.out.println("3. Leaderboard");
+        System.out.println("4. Edit Quiz");
+        System.out.println();
         System.out.print("Choose: ");
-        int choice = input.nextInt();
-        while (true) {
-            if (choice <= Categories.size()) {
-                Screen.clear();
-                QuestionReader quiz = new QuestionReader();
-                quiz.readFolder(Categories.get(choice - 1));
-                int score = 0;
 
-                for (Question question : quiz.getQuestion()) {
-                    System.out.println(question.getQuestion());
+        try {
+            int operation = input.nextInt();
 
-                    for (int i = 0; i < question.getChoices().size(); i++) {
-                        char label = (char) ('a' + i);
-                        System.out.printf("%s) %s%n", label, question.getChoices().get(i));
-                    }
+            switch (operation) {
+                case 1:
+                    Quiz.startQuizMenu();
+                    break;
 
-                    while (true) {
-                        System.out.print("Answer: ");
-                        char answer = input.next().charAt(0);
+                case 2:
+                    System.out.println("Random Quiz");
+                    break;
 
-                        // 'a' + problem.getChoices().size() will return the ascii of the last choice's
-                        // label + 1
-                        if ((int) answer < ('a' + question.getChoices().size())
-                                && (int) answer >= 97) {
-                            if (question.checkAnswer(answer)) {
-                                score++;
-                                Screen.clear();
-                                break;
-                            } else {
-                                Screen.clear();
-                                break;
-                            }
-                        } else {
-                            System.out.println("Error: Invalid Input");
-                        }
-                    }
-                }
-                Screen.clear();
-                System.out.printf("You got %d/%d%n", score, quiz.getQuestion().size()); 
-                break;
-            } else {
-                System.out.println("Error: Invalid choice");
+                case 3:
+                    System.out.println("Leaderboard");
+                    break;
+
+                case 4:
+                    System.out.println("Edit Quiz");
+                    break;
+            
+                default:
+                    System.out.println("Error: Invalid Input");
+                    break;
             }
+        } catch (InputMismatchException e) {
+            System.out.println("Error: Invalid Input");
         }
 
         input.close();
