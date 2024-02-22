@@ -92,7 +92,7 @@ public class Quiz {
         int maxscore = questionList.size();
 
         Util.clear();
-        System.out.println("Score: " + score + " / " + maxscore);
+        System.out.printf("%5s Score: %d / %d%n"," ", score, maxscore);
     }
 
     public static int checkAnswer(ArrayList<Question> questionList) {
@@ -110,17 +110,19 @@ public class Quiz {
 
     public static void startQuiz(File category) throws FileNotFoundException {
         QuestionReader questionReader = new QuestionReader();
-        ArrayList<Question> questionslist = questionReader.readFile(category);
-        userAnswer = new char[questionslist.size()];
-        correctAnswer = new char[questionslist.size()];
+        ArrayList<Question> questionList = questionReader.readFile(category);
+        userAnswer = new char[questionList.size()];
+        correctAnswer = new char[questionList.size()];
 
-        for (int i = 0; i < questionslist.size(); i++) {
-            correctAnswer[i] = questionslist.get(i).getAnswer();
+        for (int i = 0; i < questionList.size(); i++) {
+            correctAnswer[i] = questionList.get(i).getAnswer();
         }
 
         problemIndex = 0;
 
-        navigateQuiz(questionslist);
+        navigateQuiz(questionList);
+        System.out.println();
+        Leaderboard.showLeaderboard(new File("data" + File.separator + "leaderboard" + File.separator + category.getName()), 5);
     }
 
     public static void startQuizMenu() throws FileNotFoundException {
@@ -134,23 +136,20 @@ public class Quiz {
             System.out.println(i + ": " + categoryList.get(i - 1).getName().replaceFirst("[.][^.]+$", ""));
         }
         System.out.println();
-        System.out.print("Choose: ");
-
+        
         while (true) {
-            try {
-                int operation = input.nextInt();
+            System.out.print("Choose: ");
+            int operation = input.nextInt();
 
+            try {
                 if (!(operation <= (categoryList.size() - 1))) {
                     System.out.println("Error: Invalid input");
-                    System.out.print("Choose: ");
-                    continue;
                 } else {
                     startQuiz((categoryList.get(operation - 1)));
                     break;
                 }
             } catch (InputMismatchException e) {
                 System.out.println("Error: Invalid input");
-                System.out.print("Choose: ");
             }
         }
     }
