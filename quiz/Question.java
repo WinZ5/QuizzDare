@@ -24,12 +24,4 @@ public class Question {
     public char getAnswer() {
         return this.answer;
     }
-
-    public boolean checkAnswer(char answer) {
-        if (answer == this.answer) {
-            return true;
-        } else {
-            return false;
-        }
-    }
 }

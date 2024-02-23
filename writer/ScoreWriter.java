@@ -16,6 +16,7 @@ public class ScoreWriter {
         this.path = path;
     }
 
+    // Method to create new score file.
     public void newFile(File path, String name) throws IOException {
         File filePath = new File(path + File.separator + name + ".csv");
 
@@ -30,17 +31,21 @@ public class ScoreWriter {
         }
     }
 
+    // Method to append User data to the last line.
     public void append(String username, int score) throws IOException {
         FileWriter writer = new FileWriter(path, true);
         BufferedWriter buffer = new BufferedWriter(writer);
 
         buffer.newLine();
         buffer.write(username + ", ");
-        // Without "" to change score from int to String score become error character when append
+        // Without "" to change score from int to String score become error character
+        // when append
         buffer.write(score + "");
         buffer.close();
     }
 
+    // Method to update User data work by create a copy of target score file with
+    // the change and replace original file the copy.
     public void update(String username, int score) throws IOException {
         File tempFile = new File("temparary.csv");
 

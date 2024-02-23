@@ -13,6 +13,7 @@ public class QuestionWriter {
         this.path = path;
     }
 
+    // Method to append Question data to the last line.
     public void append(String question, ArrayList<String> choices, char answer) throws IOException {
         FileWriter writer = new FileWriter(path, true);
         BufferedWriter buffer = new BufferedWriter(writer);

@@ -32,18 +32,31 @@ public class Edit {
     private static ArrayList<File> categoryList = categoryReader.readFolder(folderPath);
     private static File category;
 
+    /**
+     * Method to create new category function.
+     * 
+     * @throws IOException
+     */
     public static void newCategory() throws IOException {
+        // Ask for category name.
         System.out.print("Category name: ");
         String name = input.next();
 
-        category = new File("data" + File.separator + "quiz" + File.separator + name + ".csv");
-
+        // If new file was create successfully continue.
         if (categoryWriter.createCategory(name)) {
+
+            // Assign File object with path of new file to category attribute.
+            category = new File("data" + File.separator + "quiz" + File.separator + name + ".csv");
+
+            // Create new file to save score for the new category.
             scoreWriter.newFile(scorePath, name);
+
+            // Ask wheter user want to add qusetion to category that just craeted or not.
             while (true) {
                 System.out.print("Add queston? (yes/no): ");
                 String choice = input.next();
 
+                // If user say yes, invoke addQuestion method.
                 if (choice.toLowerCase().equals("yes") || choice.toLowerCase().equals("y")) {
                     addQuestion();
                     while (true) {
@@ -68,16 +81,25 @@ public class Edit {
         }
     }
 
+    /**
+     * Method add question to category that save within object.
+     * 
+     * @throws IOException
+     */
     public static void addQuestion() throws IOException {
         QuestionWriter questionWriter = new QuestionWriter(category);
 
+        // Clear terminal.
         Util.clear();
+        // Ask for Question.
         System.out.print("Question: ");
         String question = input.next();
 
+        // Ask for choices and save it in ArrayList.
         System.out.print("Choice: ");
         ArrayList<String> choices = new ArrayList<>();
         choices.add(input.next());
+        // Keep asking if user want to add more choice or not until they say no.
         while (true) {
             System.out.print("Add more choice? (yes/no): ");
             String choice = input.next();
@@ -92,7 +114,9 @@ public class Edit {
             }
         }
 
+        // Ask for answer.
         char answer;
+        // Make sure that answer is valid.
         while (true) {
             System.out.print("Answer: ");
             char userAnswer = input.next().charAt(0);
@@ -106,10 +130,17 @@ public class Edit {
             }
         }
 
+        // Add question data to .csv file.
         questionWriter.append(question, choices, answer);
         System.out.println("Question Added.");
     }
 
+    /**
+     * Method to print menu when user choose to edit category.
+     * 
+     * @throws FileNotFoundException
+     * @throws IOException
+     */
     public static void editCategory() throws FileNotFoundException, IOException {
         ArrayList<Question> questionList = questionReader.readFile(category);
         Util.clear();
@@ -130,9 +161,11 @@ public class Edit {
             try {
                 int operation = input.nextInt();
 
+                // Invoke addQuestion if they choose to add new question.
                 if (operation == 1) {
                     addQuestion();
                     break;
+                    // Remove question with QuestionRemover if they choose to remove question.
                 } else if (operation == 2) {
                     while (true) {
                         System.out.print("Question to remove: ");
@@ -161,6 +194,12 @@ public class Edit {
         }
     }
 
+    /**
+     * Method to print all category and let user choose which one to edit.
+     * 
+     * @throws FileNotFoundException
+     * @throws IOException
+     */
     public static void startEditCategory() throws FileNotFoundException, IOException {
         while (true) {
             System.out.print("Choose category to edit: ");
@@ -182,8 +221,12 @@ public class Edit {
         }
     }
 
-    public static void deleteCateogry() {
+    /**
+     * Method to delete category.
+     */
+    public static void deleteCategory() {
 
+        // Ask user which category to delete.
         while (true) {
             System.out.print("Choose category to delete: ");
 
@@ -193,7 +236,8 @@ public class Edit {
 
                 if ((operation <= categoryList.size()) && (operation > 0)) {
                     categoryRemover.remove(categoryList.get(operation - 1));
-                    File scoreFile = new File("data" + File.separator + "leaderboard" + File.separator + categoryList.get(operation - 1).getName());
+                    File scoreFile = new File("data" + File.separator + "leaderboard" + File.separator
+                            + categoryList.get(operation - 1).getName());
                     scoreFile.delete();
                     break;
                 } else {
@@ -205,6 +249,11 @@ public class Edit {
         }
     }
 
+    /**
+     * Main method for edit feature
+     * 
+     * @throws IOException
+     */
     public static void startEdit() throws IOException {
         Util.clear();
         System.out.println("Categories list");
@@ -233,7 +282,7 @@ public class Edit {
                     startEditCategory();
                     break;
                 } else if (operation == 3) {
-                    deleteCateogry();
+                    deleteCategory();
                     break;
                 } else {
                     System.out.println("Error: Invalid Input");

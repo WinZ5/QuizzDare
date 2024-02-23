@@ -18,29 +18,46 @@ public class Leaderboard {
     private static ScoreReader scoreReader = new ScoreReader();
     private static File path;
 
+    /**
+     * Method to save new score or update the existing score.
+     * 
+     * @param score
+     * @throws FileNotFoundException
+     * @throws IOException
+     */
     public static void saveScore(int score) throws FileNotFoundException, IOException {
         ScoreWriter scoreWriter = new ScoreWriter(path);
         ArrayList<User> userList = scoreReader.readFile(path);
 
-        Util.clear();
-        System.out.print("Enter your username (Up to 10 characters): ");
-        String username = input.next();
-
+        // Ask for username which can be anything.
         while (true) {
-            for (User user : userList) {
-                if (user.getName().equals(username)) {
-                    scoreWriter.update(username, score);
+            System.out.print("Enter your username (Up to 10 characters): ");
+            String username = input.next();
+
+            // Only continue if username less than 10 characters which is maximum.
+            if (username.length() <= 10) {
+                for (User user : userList) {
+                    if (user.getName().equals(username)) {
+                        scoreWriter.update(username, score);
+                        break;
+                    }
                     break;
                 }
-                break;
+                scoreWriter.append(username, score);
+                System.out.println("Score saved.");
+            } else {
+                System.out.println("Error: Username exceed maximum.");
             }
-
-            scoreWriter.append(username, score);
-            System.out.println("Score saved.");
-            break;
         }
     }
 
+    /**
+     * Method to ask whether user want to save score or not.
+     * 
+     * @param score
+     * @throws FileNotFoundException
+     * @throws IOException
+     */
     public static void saveConsent(int score) throws FileNotFoundException, IOException {
         while (true) {
             System.out.print("Save your score? (yes/no): ");
@@ -57,7 +74,13 @@ public class Leaderboard {
         }
     }
 
+    /**
+     * Method to sort score from the given list from highest to smallest.
+     * 
+     * @param list
+     */
     public static void scoreSorter(ArrayList<User> list) {
+        // Using bubble sort.
         boolean swap = false;
 
         for (int i = 0; i < list.size() - 1; i++) {
@@ -76,9 +99,18 @@ public class Leaderboard {
         }
     }
 
+    /**
+     * Method to show score from the given file for a given amount.
+     * 
+     * @param target
+     * @param amount
+     * @throws FileNotFoundException
+     */
     public static void showLeaderboard(File target, int amount) throws FileNotFoundException {
         path = target;
+        // Read User data from the given path.
         ArrayList<User> leaderboard = scoreReader.readFile(path);
+        // Sort score before showing leaderboard.
         scoreSorter(leaderboard);
 
         System.out.printf("%6s %s %n", " ", "Leaderboard");
@@ -93,6 +125,11 @@ public class Leaderboard {
         }
     }
 
+    /**
+     * Method to ask user how many score they want to show a return that amount.
+     * 
+     * @return amount
+     */
     public static int askAmount() {
         int amount;
 
@@ -110,6 +147,12 @@ public class Leaderboard {
         return amount;
     }
 
+    /**
+     * Method to ask user for username and print score of that user from path in
+     * attribute.
+     * 
+     * @throws FileNotFoundException
+     */
     public static void searchScore() throws FileNotFoundException {
         ArrayList<User> userList = scoreReader.readFile(path);
         boolean complete = false;
@@ -118,6 +161,7 @@ public class Leaderboard {
             System.out.print("Enter username (Case-Sensitive): ");
             String username = input.next();
 
+            // If user not found print error message and ask for username again.
             for (User user : userList) {
                 if (user.getName().equals(username)) {
                     Util.clear();
@@ -133,6 +177,11 @@ public class Leaderboard {
         }
     }
 
+    /**
+     * Method to show menu after user have selected category.
+     * 
+     * @throws FileNotFoundException
+     */
     public static void categoryMenu() throws FileNotFoundException {
         Util.clear();
         System.out.println("How do you want to view the score.");
@@ -162,11 +211,17 @@ public class Leaderboard {
         }
     }
 
+    /**
+     * Main method for leaderboard function.
+     * 
+     * @throws FileNotFoundException
+     */
     public static void leaderboardMenu() throws FileNotFoundException {
         CategoryReader categoryReader = new CategoryReader();
         ArrayList<File> categoryList = categoryReader.readFolder(new File("data" + File.separator + "leaderboard"));
 
         Util.clear();
+        // Ask user what category they want to see leaderboard of include randomquiz.
         System.out.println("Leaderboard");
         System.out.println();
         System.out.println("Which category you want to view.");
@@ -174,6 +229,7 @@ public class Leaderboard {
         for (int i = 1; i <= categoryList.size(); i++) {
             System.out.println(i + ": " + categoryList.get(i - 1).getName().replaceFirst("[.][^.]+$", ""));
         }
+        // Print RandomQuiz to the list afte all categoris have been printed.
         System.out.println((categoryList.size() + 1) + ": RandomQuiz");
         System.out.println();
 

@@ -14,6 +14,7 @@ public class QuestionRemover {
     public QuestionRemover() {
     }
 
+    // Method to check wheter given arrays are the same or not.
     public boolean checkChoice(ArrayList<String> choice1, ArrayList<String> choice2) {
         boolean identical = true;
 
@@ -27,6 +28,8 @@ public class QuestionRemover {
         return identical;
     }
 
+    // This method will create a copy of targetCategoryFile without line that
+    // contain targetQuestion and replace targetCategory file with the copy.
     public void remove(File targetCategory, Question targetQuestion) throws IOException {
         File tempFile = new File("temporary.csv");
 

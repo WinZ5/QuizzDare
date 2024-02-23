@@ -12,6 +12,7 @@ public class CategoryWriter {
         this.path = path;
     }
 
+    // Method to create category file with given name.
     public boolean createCategory(String name) throws IOException {
         File filePath = new File(path + File.separator + name + ".csv");
 

@@ -22,12 +22,21 @@ public class Randomquiz {
     private static boolean complete = false;
     private static int score = 0;
 
+    /**
+     * Method to answer question.
+     * 
+     * @param question
+     * @param answer
+     * @throws FileNotFoundException
+     * @throws IOException
+     */
     public static void answerQuestion(Question question, String answer)
             throws FileNotFoundException, IOException {
 
         while (true) {
             if ((int) answer.charAt(0) < ('a' + question.getChoices().size())
                     && (int) answer.charAt(0) >= 97) {
+                // If user answer is correct score++ if user answer wrong invoke endRandomQuiz.
                 if (answer.charAt(0) == question.getAnswer()) {
                     score++;
                     break;
@@ -41,6 +50,12 @@ public class Randomquiz {
         }
     }
 
+    /**
+     * Method to end quiz and print the leaderborad.
+     * 
+     * @throws FileNotFoundException
+     * @throws IOException
+     */
     public static void endRandomQuiz() throws FileNotFoundException, IOException {
         System.out.println("Score: " + score);
         System.out.println();
@@ -51,7 +66,14 @@ public class Randomquiz {
         complete = true;
     }
 
+    /**
+     * Main method for Random Quiz feature.
+     * 
+     * @throws FileNotFoundException
+     * @throws IOException
+     */
     public static void startRandomQuiz() throws FileNotFoundException, IOException {
+        // Read question from all category and save into questionList
         for (File category : categoryList) {
             ArrayList<Question> questions = questionReader.readFile(category);
             for (Question question : questions) {
@@ -59,6 +81,7 @@ public class Randomquiz {
             }
         }
 
+        // Suffle questionList
         Util.shuffle(questionList);
 
         while (!complete) {

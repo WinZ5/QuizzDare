@@ -10,15 +10,19 @@ import quiz.User;
 
 public class ScoreReader {
 
-    public ScoreReader() { }
+    public ScoreReader() {
+    }
 
     public ArrayList<User> readFile(File path) throws FileNotFoundException {
+        // Create new ArrayList to save User.
         ArrayList<User> usersList = new ArrayList<>();
 
         Scanner input = new Scanner(path);
 
         input.nextLine();
 
+        // User StringTokenzier to read file and create new User class for data in each
+        // line and add it's so usersList
         while (input.hasNextLine()) {
             String dataLine = input.nextLine();
             StringTokenizer tokenizer = new StringTokenizer(dataLine.trim(), ",");
