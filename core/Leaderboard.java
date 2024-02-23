@@ -36,6 +36,7 @@ public class Leaderboard {
             }
 
             scoreWriter.append(username, score);
+            System.out.println("Score saved.");
             break;
         }
     }
@@ -56,12 +57,32 @@ public class Leaderboard {
         }
     }
 
+    public static void scoreSorter(ArrayList<User> list) {
+        boolean swap = false;
+
+        for (int i = 0; i < list.size() - 1; i++) {
+            for (int j = 0; j < list.size() - 1 - i; j++) {
+                if (list.get(j).getScore() < list.get(j + 1).getScore()) {
+                    User temp = list.get(j);
+                    list.set(j, list.get(j + 1));
+                    list.set(j + 1, temp);
+                    swap = true;
+                }
+            }
+
+            if (!swap) {
+                break;
+            }
+        }
+    }
+
     public static void showLeaderboard(File target, int amount) throws FileNotFoundException {
         path = target;
         ArrayList<User> leaderboard = scoreReader.readFile(path);
-        Util.scoreSorter(leaderboard);
+        scoreSorter(leaderboard);
 
         System.out.printf("%6s %s %n", " ", "Leaderboard");
+        System.out.println();
         System.out.printf("%10s %10s%n", "Username", "Score");
         for (int i = 0; i < amount; i++) {
             if (i > leaderboard.size() - 1) {
@@ -75,7 +96,6 @@ public class Leaderboard {
     public static int askAmount() {
         int amount;
 
-        Util.clear();
         while (true) {
             System.out.print("How many users you want to show: ");
             try {
@@ -90,16 +110,71 @@ public class Leaderboard {
         return amount;
     }
 
-    public static void scoreByCategory() throws FileNotFoundException {
+    public static void searchScore() throws FileNotFoundException {
+        ArrayList<User> userList = scoreReader.readFile(path);
+        boolean complete = false;
+
+        while (!complete) {
+            System.out.print("Enter username (Case-Sensitive): ");
+            String username = input.next();
+
+            for (User user : userList) {
+                if (user.getName().equals(username)) {
+                    Util.clear();
+                    System.out.printf("%10s %10s%n", "Username", "Score");
+                    System.out.printf("%10s %10d%n", user.getName(), user.getScore());
+                    complete = true;
+                }
+            }
+
+            if (!complete) {
+                System.out.println("Error: User not found");
+            }
+        }
+    }
+
+    public static void categoryMenu() throws FileNotFoundException {
+        Util.clear();
+        System.out.println("How do you want to view the score.");
+        System.out.println();
+        System.out.println("1. Show score");
+        System.out.println("2. Search for user");
+        System.out.println();
+        while (true) {
+            System.out.print("Choose: ");
+
+            try {
+                int operation = input.nextInt();
+
+                if (operation == 1) {
+                    int amount = askAmount();
+                    showLeaderboard(path, amount);
+                    break;
+                } else if (operation == 2) {
+                    searchScore();
+                    break;
+                } else {
+                    System.out.println("Error: Invalid Input");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Error: Invalid Input");
+            }
+        }
+    }
+
+    public static void leaderboardMenu() throws FileNotFoundException {
         CategoryReader categoryReader = new CategoryReader();
         ArrayList<File> categoryList = categoryReader.readFolder(new File("data" + File.separator + "leaderboard"));
 
         Util.clear();
-        System.out.println("Category");
+        System.out.println("Leaderboard");
+        System.out.println();
+        System.out.println("Which category you want to view.");
         System.out.println();
         for (int i = 1; i <= categoryList.size(); i++) {
             System.out.println(i + ": " + categoryList.get(i - 1).getName().replaceFirst("[.][^.]+$", ""));
         }
+        System.out.println((categoryList.size() + 1) + ": RandomQuiz");
         System.out.println();
 
         while (true) {
@@ -108,52 +183,20 @@ public class Leaderboard {
             try {
                 int operation = input.nextInt();
 
-                if (!(operation <= categoryList.size()) && (operation > 0)) {
+                if (!(operation <= (categoryList.size() + 1)) && (operation > 0)) {
                     System.out.println("Error: Invalid Input");
+                } else if (operation == (categoryList.size() + 1)) {
+                    path = new File("data" + File.separator + "randomquiz" + File.separator + "score.csv");
+                    categoryMenu();
+                    break;
                 } else {
-                    int amount = askAmount();
-                    showLeaderboard(categoryList.get(operation - 1), amount);
+                    path = categoryList.get(operation - 1);
+                    categoryMenu();
                     break;
                 }
             } catch (InputMismatchException e) {
                 System.out.println("Error: Invalid Input");
             }
         }
-    }
-
-    public static void leaderboardInputMenu() throws FileNotFoundException {
-        try {
-            System.out.print("Choose: ");
-            int operation = input.nextInt();
-
-            switch (operation) {
-                case 1:
-                    scoreByCategory();
-                    break;
-
-                case 2:
-                    System.out.println("seacrh");
-                    break;
-
-                default:
-                    System.out.println("Error: Invalid Input");
-                    leaderboardInputMenu();
-                    break;
-            }
-
-        } catch (InputMismatchException e) {
-            System.out.println("Error: Invalid Input");
-            leaderboardInputMenu();
-        }
-    }
-
-    public static void leaderboardMenu() throws FileNotFoundException {
-        Util.clear();
-        System.out.println("Leaderboard");
-        System.out.println();
-        System.out.println("1. View score by category.");
-        System.out.println("2. Search for user.");
-        System.out.println();
-        leaderboardInputMenu();
     }
 }

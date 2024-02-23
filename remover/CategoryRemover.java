@@ -7,7 +7,7 @@ public class CategoryRemover {
 
     public void remove(File path) {
         if (path.delete()) {
-            System.out.println("Category deleted");
+            System.out.println("Category deleted.");
         }
     }
 }

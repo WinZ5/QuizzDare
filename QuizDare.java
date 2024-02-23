@@ -3,8 +3,10 @@ import java.io.IOException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import core.Edit;
 import core.Leaderboard;
 import core.Quiz;
+import core.Randomquiz;
 import util.Util;
 
 public class QuizDare {
@@ -21,7 +23,7 @@ public class QuizDare {
                     break;
 
                 case 2:
-                    System.out.println("Random Quiz");
+                    Randomquiz.startRandomQuiz();
                     break;
 
                 case 3:
@@ -29,7 +31,7 @@ public class QuizDare {
                     break;
 
                 case 4:
-                    System.out.println("Edit Quiz");
+                    Edit.startEdit();
                     break;
 
                 default:

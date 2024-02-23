@@ -12,7 +12,7 @@ public class CategoryWriter {
         this.path = path;
     }
 
-    public void createCategory(String name) throws IOException {
+    public boolean createCategory(String name) throws IOException {
         File filePath = new File(path + File.separator + name + ".csv");
 
         if (filePath.createNewFile()) {
@@ -21,8 +21,11 @@ public class CategoryWriter {
 
             buffer.write("Question, a, b, c, d, answer");
             buffer.close();
+            System.out.println("New category added.");
+            return true;
         } else {
             System.out.println("Error: Category alredy exist");
+            return false;
         } 
     }
 }

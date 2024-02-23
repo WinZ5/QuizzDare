@@ -1,8 +1,7 @@
 package util;
 
 import java.util.ArrayList;
-
-import quiz.User;
+import java.util.Random;
 
 public class Util {
     public static void clear() {
@@ -10,22 +9,19 @@ public class Util {
         System.out.flush();
     }
 
-    public static void scoreSorter(ArrayList<User> list) {
-        boolean swap = false;
+    public static <E> void shuffle(ArrayList<E> list) {
+        ArrayList<E> list2 = new ArrayList<E>();
+        Random rand = new Random();
 
-        for (int i = 0; i < list.size() - 1; i++) {
-            for (int j = 0; j < list.size()  - 1 - i; j++) {
-                if (list.get(j).getScore() < list.get(j + 1).getScore()) {
-                    User temp = list.get(j);
-                    list.set(j, list.get(j + 1));
-                    list.set(j + 1, temp);
-                    swap = true;
-                }
-            }
+        for (int i = 0; i < list.size(); i++) {
+            list2.add(list.get(i));
+        }
 
-            if (!swap) {
-                break;
-            }
+        for (int i = 0; i < list.size(); i++) {
+            int j = rand.nextInt(list2.size());
+
+            list.set(i, list2.get(j));
+            list2.remove(j);
         }
     }
 }

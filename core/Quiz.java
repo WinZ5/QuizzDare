@@ -71,7 +71,6 @@ public class Quiz {
         while (true) {
             if ((int) answer.charAt(0) < ('a' + questionList.get(problemIndex).getChoices().size())
             && (int) answer.charAt(0) >= 97) {
-
                 userAnswer[problemIndex] = answer.charAt(0);
 
                 if (problemIndex < (questionList.size() - 1)) {
@@ -82,7 +81,6 @@ public class Quiz {
                     endQuiz(questionList);
                     break;
                 }
-                
             } else {
                 System.out.println("Error: Invalid answer");
             }
@@ -134,7 +132,7 @@ public class Quiz {
         ArrayList<File> categoryList = categoryReader.readFolder(new File("data" + File.separator + "quiz"));
 
         Util.clear();
-        System.out.println("Category");
+        System.out.println("Choose category of your quiz.");
         System.out.println();
         for (int i = 1; i <= categoryList.size(); i++) {
             System.out.println(i + ": " + categoryList.get(i - 1).getName().replaceFirst("[.][^.]+$", ""));
