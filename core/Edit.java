@@ -114,7 +114,7 @@ public class Edit {
             }
 
             if (choices.size() == 26) {
-                System.out.println("Limit of choics reached.");
+                System.out.println("Limit of choices reached.");
                 break;
             }
         }
