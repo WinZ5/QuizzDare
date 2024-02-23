@@ -10,6 +10,7 @@ import java.util.Scanner;
 import quiz.Question;
 import reader.CategoryReader;
 import reader.QuestionReader;
+import remover.CategoryRemover;
 import remover.QuestionRemover;
 import util.Util;
 import writer.CategoryWriter;
@@ -24,6 +25,7 @@ public class Edit {
     private static QuestionReader questionReader = new QuestionReader();
     private static CategoryWriter categoryWriter = new CategoryWriter(folderPath);
     private static ScoreWriter scoreWriter = new ScoreWriter(scorePath);
+    private static CategoryRemover categoryRemover = new CategoryRemover();
     private static QuestionRemover questionRemover = new QuestionRemover();
     private static Scanner input = new Scanner(System.in);
 
@@ -167,12 +169,35 @@ public class Edit {
 
                 int operation = input.nextInt();
 
-                if (!(operation <= categoryList.size()) && (operation > 0)) {
-                    System.out.println("Error: Invalid Input");
-                } else {
+                if ((operation <= categoryList.size()) && (operation > 0)) {
                     category = categoryList.get(operation - 1);
                     editCategory();
                     break;
+                } else {
+                    System.out.println("Error: Invalid Input");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Error: Invalid Input");
+            }
+        }
+    }
+
+    public static void deleteCateogry() {
+
+        while (true) {
+            System.out.print("Choose category to delete: ");
+
+            try {
+
+                int operation = input.nextInt();
+
+                if ((operation <= categoryList.size()) && (operation > 0)) {
+                    categoryRemover.remove(categoryList.get(operation - 1));
+                    File scoreFile = new File("data" + File.separator + "leaderboard" + File.separator + categoryList.get(operation - 1).getName());
+                    scoreFile.delete();
+                    break;
+                } else {
+                    System.out.println("Error: Invalid Input");
                 }
             } catch (InputMismatchException e) {
                 System.out.println("Error: Invalid Input");
@@ -208,7 +233,7 @@ public class Edit {
                     startEditCategory();
                     break;
                 } else if (operation == 3) {
-                    System.out.println("delete");
+                    deleteCateogry();
                     break;
                 } else {
                     System.out.println("Error: Invalid Input");
