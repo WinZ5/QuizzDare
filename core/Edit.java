@@ -60,7 +60,7 @@ public class Edit {
                 if (choice.toLowerCase().equals("yes") || choice.toLowerCase().equals("y")) {
                     addQuestion();
                     while (true) {
-                        System.out.println("Add more question? (yes/no): ");
+                        System.out.print("Add more question? (yes/no): ");
                         String choice2 = input.next();
 
                         if (choice2.toLowerCase().equals("yes") || choice2.toLowerCase().equals("y")) {

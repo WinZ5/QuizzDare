@@ -27,15 +27,18 @@ public class QuestionReader {
             String dataLine = input.nextLine();
             StringTokenizer tokenizer = new StringTokenizer(dataLine.trim(), ",");
 
+            int allTokens = tokenizer.countTokens();
             String question = tokenizer.nextToken().trim();
             ArrayList<String> choice = new ArrayList<>();
 
-            for (int i = 0; i <= tokenizer.countTokens() + 1; i++) {
+            int remainToken = allTokens - 2;
+            for (int i = 0; i < remainToken; i++) {
                 choice.add(tokenizer.nextToken().trim());
             }
             char answer = tokenizer.nextToken().trim().charAt(0);
 
             questionsList.add(new Question(question, choice, answer));
+            System.out.println(questionsList.get(0).getChoices());
         }
 
         input.close();

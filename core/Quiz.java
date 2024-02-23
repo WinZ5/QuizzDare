@@ -51,66 +51,65 @@ public class Quiz {
         }
 
         if (!(problemIndex == (questionList.size() - 1)) && !(problemIndex == 0)) {
-            System.out.println("You can answer \"prev\" to go to previous question or use \"next\" to go to next question.");
+            System.out.println(
+                    "You can answer \"prev\" to go to previous question or use \"next\" to go to next question.");
         }
 
         if (problemIndex == (questionList.size() - 1)) {
             System.out.println("You can answer \"prev\" to go to previous question.");
         }
 
-        // Ask user for answer.
-        System.out.println();
-        System.out.print("Answer: ");
-        String answer = input.next();
-
-        if (answer.toLowerCase().equals("prev")) {
-            if (problemIndex == 0) {
-                System.out.println("Error: This is the first question");
-            } else {
-                problemIndex--;
-                navigateQuiz(questionList);
-            }
-        } else if (answer.toLowerCase().equals("next")) {
-            if (!(problemIndex == (questionList.size() - 1))) {
-                problemIndex++;
-                navigateQuiz(questionList);
-            } 
-        } else {
-            answerQuestion(questionList, answer);
-        }
+        answerQuestion(questionList);
     }
 
-    
     /**
      * Method to that review useranswer and save it's in userAnswer.
      * 
      * @param questionList
-     * @param answer
      * @throws FileNotFoundException
      * @throws IOException
      */
-    public static void answerQuestion(ArrayList<Question> questionList, String answer) throws FileNotFoundException, IOException {
+    public static void answerQuestion(ArrayList<Question> questionList)
+            throws FileNotFoundException, IOException {
         while (true) {
-            // Black Magic use to determine wheter user answer is valid.
-            // Don't let European during 1560–1630 see this I don't want to get brun alive.
-            if ((int) answer.charAt(0) < ('a' + questionList.get(problemIndex).getChoices().size())
-            && (int) answer.charAt(0) >= 97) {
-                userAnswer[problemIndex] = answer.charAt(0);
+            System.out.println();
+            System.out.print("Answer: ");
+            String answer = input.next();
 
-                if (problemIndex < (questionList.size() - 1)) {
+            if (answer.toLowerCase().equals("prev")) {
+                if (problemIndex == 0) {
+                    System.out.println("Error: This is the first question");
+                } else {
+                    problemIndex--;
+                    navigateQuiz(questionList);
+                }
+            } else if (answer.toLowerCase().equals("next")) {
+                if (!(problemIndex == (questionList.size() - 1))) {
                     problemIndex++;
                     navigateQuiz(questionList);
-                    break;
-                } else {
-                    endQuiz(questionList);
-                    break;
                 }
             } else {
-                System.out.println("Error: Invalid answer");
+                // Black Magic use to determine wheter user answer is valid.
+                // Don't let European during 1560–1630 see this I don't want to get brun alive.
+                if ((int) answer.charAt(0) < ('a' + questionList.get(problemIndex).getChoices().size())
+                        && (int) answer.charAt(0) >= 97) {
+                    userAnswer[problemIndex] = answer.charAt(0);
+
+                    if (problemIndex < (questionList.size() - 1)) {
+                        problemIndex++;
+                        navigateQuiz(questionList);
+                        break;
+                    } else {
+                        endQuiz(questionList);
+                        break;
+                    }
+                } else {
+                    System.out.println("Error: Invalid answer");
+                }
             }
         }
     }
-    
+
     /**
      * Method to end the quiz and print user score with the leaderboard.
      * 
@@ -123,9 +122,10 @@ public class Quiz {
         int maxscore = questionList.size();
 
         Util.clear();
-        System.out.printf("%6s Score: %d / %d%n"," ", score, maxscore);
+        System.out.printf("%6s Score: %d / %d%n", " ", score, maxscore);
         System.out.println();
-        Leaderboard.showLeaderboard(new File("data" + File.separator + "leaderboard" + File.separator + category.getName()), 5);
+        Leaderboard.showLeaderboard(
+                new File("data" + File.separator + "leaderboard" + File.separator + category.getName()), 5);
         System.out.println();
         Leaderboard.saveConsent(score);
     }
@@ -189,10 +189,10 @@ public class Quiz {
             System.out.println(i + ": " + categoryList.get(i - 1).getName().replaceFirst("[.][^.]+$", ""));
         }
         System.out.println();
-        
+
         while (true) {
             System.out.print("Choose: ");
-            
+
             try {
 
                 int operation = input.nextInt();
