@@ -112,6 +112,11 @@ public class Edit {
             } else {
                 System.out.println("Error: Invalid Input");
             }
+
+            if (choices.size() == 44) {
+                System.out.println("Limit of choics reached.");
+                break;
+            }
         }
 
         // Ask for answer.
