@@ -27,10 +27,12 @@ public class QuestionReader {
             String dataLine = input.nextLine();
             StringTokenizer tokenizer = new StringTokenizer(dataLine.trim(), ",");
 
+            // Get the amount of all token
             int allTokens = tokenizer.countTokens();
             String question = tokenizer.nextToken().trim();
             ArrayList<String> choice = new ArrayList<>();
 
+            // -1 from Question and another one so that the last token for answer doesn't get read,
             int remainToken = allTokens - 2;
             for (int i = 0; i < remainToken; i++) {
                 choice.add(tokenizer.nextToken().trim());
