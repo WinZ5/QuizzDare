@@ -123,7 +123,7 @@ public class Edit {
         char answer;
         // Make sure that answer is valid.
         while (true) {
-            System.out.print("Answer (a, b, c, d, ...): ");
+            System.out.print("Answer (as choice a, b, c, d, ...): ");
             char userAnswer = input.next().charAt(0);
 
             if ((int) userAnswer < ('a' + choices.size())
