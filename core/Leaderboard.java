@@ -45,6 +45,7 @@ public class Leaderboard {
                 }
                 scoreWriter.append(username, score);
                 System.out.println("Score saved.");
+                break;
             } else {
                 System.out.println("Error: Username exceed maximum.");
             }
