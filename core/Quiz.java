@@ -46,20 +46,24 @@ public class Quiz {
         printQuestion(question);
 
         // Print navigation instruction.
-        if (problemIndex == 0) {
-            System.out.println("You can answer \"next\" to go to next question.");
-        }
+        try {
+            if (problemIndex == 0) {
+                System.out.println("You can answer \"next\" to go to next question.");
+            }
 
-        if (!(problemIndex == (questionList.size() - 1)) && !(problemIndex == 0)) {
-            System.out.println(
-                    "You can answer \"prev\" to go to previous question or use \"next\" to go to next question.");
-        }
+            if (!(problemIndex == (questionList.size() - 1)) && !(problemIndex == 0)) {
+                System.out.println(
+                        "You can answer \"prev\" to go to previous question or use \"next\" to go to next question.");
+            }
 
-        if (problemIndex == (questionList.size() - 1)) {
-            System.out.println("You can answer \"prev\" to go to previous question.");
-        }
+            if (problemIndex == (questionList.size() - 1)) {
+                System.out.println("You can answer \"prev\" to go to previous question.");
+            }
 
-        answerQuestion(questionList);
+            answerQuestion(questionList);
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Error: This category has no question.");
+        }
     }
 
     /**

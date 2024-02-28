@@ -99,18 +99,18 @@ public class Edit {
         // Ask for choices and save it in ArrayList.
         System.out.print("Choice a: ");
         ArrayList<String> choices = new ArrayList<>();
-        choices.add(input.next());
+        String choice = input.nextLine();
+        choices.add(choice);
         // Keep asking if user want to add more choice or not until they say no.
         int i = 1;
         while (true) {
-            input.nextLine();
             System.out.print("Add more choice? (yes/no): ");
-            String choice = input.nextLine();
+            choice = input.nextLine();
 
             if (choice.toLowerCase().equals("yes") || choice.toLowerCase().equals("y")) {
-                input.nextLine();
                 System.out.print("Choice " + (char) ('a' + i) + ": ");
-                choices.add(input.next());
+                choice = input.nextLine();
+                choices.add(choice);
                 i++;
             } else if (choice.toLowerCase().equals("no") || choice.toLowerCase().equals("n")) {
                 break;
