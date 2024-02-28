@@ -28,6 +28,7 @@ public class Leaderboard {
     public static void saveScore(int score) throws FileNotFoundException, IOException {
         ScoreWriter scoreWriter = new ScoreWriter(path);
         ArrayList<User> userList = scoreReader.readFile(path);
+        boolean update = false;
 
         // Ask for username which can be anything.
         while (true) {
@@ -39,12 +40,17 @@ public class Leaderboard {
                 for (User user : userList) {
                     if (user.getName().equals(username)) {
                         scoreWriter.update(username, score);
+                        update = true;
                         break;
                     }
-                    break;
                 }
-                scoreWriter.append(username, score);
-                System.out.println("Score saved.");
+
+                if (!update) {
+                    scoreWriter.append(username, score);
+                    System.out.println("Score saved.");
+                } else {
+                    System.out.println("Score update.");
+                }
                 break;
             } else {
                 System.out.println("Error: Username exceed maximum.");
