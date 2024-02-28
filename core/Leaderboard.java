@@ -32,8 +32,9 @@ public class Leaderboard {
 
         // Ask for username which can be anything.
         while (true) {
+            input.nextLine();
             System.out.print("Enter your username (Up to 10 characters): ");
-            String username = input.next();
+            String username = input.nextLine();
 
             // Only continue if username less than 10 characters which is maximum.
             if (username.length() <= 10) {

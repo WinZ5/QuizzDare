@@ -91,9 +91,10 @@ public class Edit {
 
         // Clear terminal.
         Util.clear();
+        input.nextLine();
         // Ask for Question.
         System.out.print("Question: ");
-        String question = input.next();
+        String question = input.nextLine();
 
         // Ask for choices and save it in ArrayList.
         System.out.print("Choice a: ");
@@ -102,10 +103,12 @@ public class Edit {
         // Keep asking if user want to add more choice or not until they say no.
         int i = 1;
         while (true) {
+            input.nextLine();
             System.out.print("Add more choice? (yes/no): ");
-            String choice = input.next();
+            String choice = input.nextLine();
 
             if (choice.toLowerCase().equals("yes") || choice.toLowerCase().equals("y")) {
+                input.nextLine();
                 System.out.print("Choice " + (char) ('a' + i) + ": ");
                 choices.add(input.next());
                 i++;
