@@ -38,7 +38,7 @@ public class QuizDare {
 
             } catch (InputMismatchException e) {
                 System.out.println("Error: Invalid Input");
-                input.next();
+                input.nextLine();
             }
         }
     }
@@ -77,7 +77,7 @@ public class QuizDare {
                 input.close();
             } catch (InputMismatchException e) {
                 System.out.println("Error: Invalid Input");
-                input.next();
+                input.nextLine();
             }
         }
     }

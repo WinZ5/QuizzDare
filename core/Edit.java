@@ -191,7 +191,7 @@ public class Edit {
                             }
                         } catch (InputMismatchException e) {
                             System.out.println("Error: Invalid Input");
-                            input.next();
+                            input.nextLine();
                         }
                     }
                     break;
@@ -201,7 +201,7 @@ public class Edit {
 
             } catch (InputMismatchException e) {
                 System.out.println("Error: Invalid Input");
-                input.next();
+                input.nextLine();
             }
         }
     }
@@ -229,7 +229,7 @@ public class Edit {
                 }
             } catch (InputMismatchException e) {
                 System.out.println("Error: Invalid Input");
-                input.next();
+                input.nextLine();
             }
         }
     }
@@ -258,7 +258,7 @@ public class Edit {
                 }
             } catch (InputMismatchException e) {
                 System.out.println("Error: Invalid Input");
-                input.next();
+                input.nextLine();
             }
         }
     }
@@ -304,7 +304,7 @@ public class Edit {
 
             } catch (InputMismatchException e) {
                 System.out.println("Error: Invalid Input");
-                input.next();
+                input.nextLine();
             }
         }
     }
