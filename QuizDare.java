@@ -14,35 +14,32 @@ public class QuizDare {
 
     public static void inputMenu() throws FileNotFoundException, IOException {
 
-        try {
+        while (true) {
             System.out.print("Choose: ");
-            int operation = input.nextInt();
 
-            switch (operation) {
-                case 1:
+            try {
+                int operation = input.nextInt();
+
+                if (operation == 1) {
                     Quiz.startQuizMenu();
                     break;
-
-                case 2:
+                } else if (operation == 2) {
                     Randomquiz.startRandomQuiz();
                     break;
-
-                case 3:
+                } else if (operation == 3) {
                     Leaderboard.leaderboardMenu();
                     break;
-
-                case 4:
+                } else if (operation == 4) {
                     Edit.startEdit();
                     break;
-
-                default:
+                } else {
                     System.out.println("Error: Invalid Input");
-                    inputMenu();
-                    break;
+                }
+
+            } catch (InputMismatchException e) {
+                System.out.println("Error: Invalid Input");
+                input.next();
             }
-        } catch (InputMismatchException e) {
-            System.out.println("Error: Invalid Input");
-            inputMenu();
         }
     }
 
@@ -73,13 +70,13 @@ public class QuizDare {
                 if (user.toLowerCase().equals("exit")) {
                     break;
                 } else if (user.toLowerCase().equals("home")) {
-                    continue;
                 } else {
                     System.out.println("Error: Invalid Input");
                 }
                 input.close();
             } catch (InputMismatchException e) {
                 System.out.println("Error: Invalid Input");
+                input.next();
             }
         }
     }

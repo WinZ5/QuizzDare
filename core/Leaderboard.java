@@ -141,6 +141,7 @@ public class Leaderboard {
                 break;
             } catch (InputMismatchException e) {
                 System.out.println("Error: Invalid Input");
+                input.next();
             }
         }
 
@@ -208,6 +209,7 @@ public class Leaderboard {
                 }
             } catch (InputMismatchException e) {
                 System.out.println("Error: Invalid Input");
+                input.next();
             }
         }
     }
@@ -253,6 +255,7 @@ public class Leaderboard {
                 }
             } catch (InputMismatchException e) {
                 System.out.println("Error: Invalid Input");
+                input.next();
             }
         }
     }

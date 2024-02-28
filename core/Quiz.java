@@ -206,6 +206,7 @@ public class Quiz {
                 }
             } catch (InputMismatchException e) {
                 System.out.println("Error: Invalid Input");
+                input.next();
             }
         }
     }

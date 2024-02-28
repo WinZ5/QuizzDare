@@ -106,7 +106,7 @@ public class Edit {
             String choice = input.next();
 
             if (choice.toLowerCase().equals("yes") || choice.toLowerCase().equals("y")) {
-                System.out.print("Choice " + (char)('a' + i) + ": ");
+                System.out.print("Choice " + (char) ('a' + i) + ": ");
                 choices.add(input.next());
                 i++;
             } else if (choice.toLowerCase().equals("no") || choice.toLowerCase().equals("n")) {
@@ -188,6 +188,7 @@ public class Edit {
                             }
                         } catch (InputMismatchException e) {
                             System.out.println("Error: Invalid Input");
+                            input.next();
                         }
                     }
                     break;
@@ -197,6 +198,7 @@ public class Edit {
 
             } catch (InputMismatchException e) {
                 System.out.println("Error: Invalid Input");
+                input.next();
             }
         }
     }
@@ -224,6 +226,7 @@ public class Edit {
                 }
             } catch (InputMismatchException e) {
                 System.out.println("Error: Invalid Input");
+                input.next();
             }
         }
     }
@@ -252,6 +255,7 @@ public class Edit {
                 }
             } catch (InputMismatchException e) {
                 System.out.println("Error: Invalid Input");
+                input.next();
             }
         }
     }
@@ -297,6 +301,7 @@ public class Edit {
 
             } catch (InputMismatchException e) {
                 System.out.println("Error: Invalid Input");
+                input.next();
             }
         }
     }
