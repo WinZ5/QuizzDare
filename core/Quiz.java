@@ -97,7 +97,7 @@ public class Quiz {
                 }
             } else {
                 // Black Magic use to determine wheter user answer is valid.
-                // Don't let European during 1560–1630 see this I don't want to get brun alive.
+                // Don't let European during 1560–1630 see this I don't want to get burn alive.
                 if ((int) answer.charAt(0) < ('a' + questionList.get(problemIndex).getChoices().size())
                         && (int) answer.charAt(0) >= 97) {
                     userAnswer[problemIndex] = answer.charAt(0);

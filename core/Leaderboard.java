@@ -32,7 +32,7 @@ public class Leaderboard {
 
         // Ask for username which can be anything.
         while (true) {
-            input.nextLine();
+            // input.nextLine();
             System.out.print("Enter your username (Up to 10 characters): ");
             String username = input.nextLine();
 
@@ -54,7 +54,11 @@ public class Leaderboard {
                 }
                 break;
             } else {
-                System.out.println("Error: Username exceed maximum.");
+                if (username.length() >= 10) {
+                    System.out.println("Error: Username exceed maximum.");
+                } else if (username.length() == 0) {
+                    System.out.println("Error: username can't be empty space.");
+                }
             }
         }
     }
@@ -69,7 +73,7 @@ public class Leaderboard {
     public static void saveConsent(int score) throws FileNotFoundException, IOException {
         while (true) {
             System.out.print("Save your score? (yes/no): ");
-            String consent = input.next();
+            String consent = input.nextLine();
 
             if (consent.toLowerCase().equals("yes") || consent.toLowerCase().equals("y")) {
                 saveScore(score);
