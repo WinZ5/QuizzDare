@@ -13,7 +13,7 @@ public class TestQuestionReader {
         CategoryReader reader = new CategoryReader();
         QuestionReader quizreader = new QuestionReader();
         
-        ArrayList<File> folderList = reader.readFolder(new File("data" + File.separator + "quiz"));
+        ArrayList<File> folderList = reader.readFolder(new File("test" + File.separator + "testdata"));
         ArrayList<Question> questionsList = new ArrayList<>();
 
         for (File folder : folderList) {
