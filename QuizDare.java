@@ -10,8 +10,9 @@ import core.Randomquiz;
 import util.Util;
 
 public class QuizDare {
+    static Scanner input = new Scanner(System.in);
+
     public static void inputMenu() throws FileNotFoundException, IOException {
-        Scanner input = new Scanner(System.in);
 
         try {
             System.out.print("Choose: ");
@@ -46,8 +47,6 @@ public class QuizDare {
     }
 
     public static void main(String[] args) throws FileNotFoundException, IOException {
-        Scanner input = new Scanner(System.in);
-
         while (true) {
             Util.clear();
 
