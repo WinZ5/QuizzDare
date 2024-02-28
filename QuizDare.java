@@ -70,6 +70,7 @@ public class QuizDare {
                 if (user.toLowerCase().equals("exit")) {
                     break;
                 } else if (user.toLowerCase().equals("home")) {
+                    continue;
                 } else {
                     System.out.println("Error: Invalid Input");
                 }
