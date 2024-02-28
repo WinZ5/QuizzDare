@@ -40,7 +40,6 @@ public class QuestionReader {
             char answer = tokenizer.nextToken().trim().charAt(0);
 
             questionsList.add(new Question(question, choice, answer));
-            System.out.println(questionsList.get(0).getChoices());
         }
 
         input.close();
