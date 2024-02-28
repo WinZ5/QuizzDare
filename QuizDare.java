@@ -43,28 +43,45 @@ public class QuizDare {
             System.out.println("Error: Invalid Input");
             inputMenu();
         }
-
-        input.close();
     }
 
     public static void main(String[] args) throws FileNotFoundException, IOException {
-        Util.clear();
+        Scanner input = new Scanner(System.in);
 
-        System.out.println("   ____        _     _____                 ");
-        System.out.println("  / __ \\      (_)   |  __ \\                ");
-        System.out.println(" | |  | |_   _ _ ___| |  | | __ _ _ __ ___ ");
-        System.out.println(" | |  | | | | | |_  / |  | |/ _` | '__/ _ \\");
-        System.out.println(" | |__| | |_| | |/ /| |__| | (_| | | |  __/");
-        System.out.println("  \\___\\_\\\\__,_|_/___|_____/ \\__,_|_|  \\___|");
-        // System.out.println("QuizDare");
-        System.out.println("Welcome to QuizDare to begin input operation number (1 - 4)");
-        System.out.println();
-        System.out.println("1. Start Quiz");
-        System.out.println("2. Random Quiz");
-        System.out.println("3. Leaderboard");
-        System.out.println("4. Edit Quiz");
-        System.out.println();
+        while (true) {
+            Util.clear();
 
-        inputMenu();
+            System.out.println("   ____        _     _____                 ");
+            System.out.println("  / __ \\      (_)   |  __ \\                ");
+            System.out.println(" | |  | |_   _ _ ___| |  | | __ _ _ __ ___ ");
+            System.out.println(" | |  | | | | | |_  / |  | |/ _` | '__/ _ \\");
+            System.out.println(" | |__| | |_| | |/ /| |__| | (_| | | |  __/");
+            System.out.println("  \\___\\_\\\\__,_|_/___|_____/ \\__,_|_|  \\___|");
+            // System.out.println("QuizDare");
+            System.out.println("Welcome to QuizDare to begin input operation number (1 - 4)");
+            System.out.println();
+            System.out.println("1. Start Quiz");
+            System.out.println("2. Random Quiz");
+            System.out.println("3. Leaderboard");
+            System.out.println("4. Edit Quiz");
+            System.out.println();
+
+            inputMenu();
+            try {
+                System.out.print("exit to quit the program or home to return to home: ");
+                String user = input.next();
+
+                if (user.toLowerCase().equals("exit")) {
+                    break;
+                } else if (user.toLowerCase().equals("home")) {
+                    continue;
+                } else {
+                    System.out.println("Error: Invalid Input");
+                }
+                input.close();
+            } catch (InputMismatchException e) {
+                System.out.println("Error: Invalid Input");
+            }
+        }
     }
 }
