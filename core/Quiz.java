@@ -94,6 +94,8 @@ public class Quiz {
                 if (!(problemIndex == (questionList.size() - 1))) {
                     problemIndex++;
                     navigateQuiz(questionList);
+                } else {
+                    System.out.println("Error: This is the last question");
                 }
             } else {
                 // Black Magic use to determine wheter user answer is valid.
