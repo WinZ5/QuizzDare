@@ -29,7 +29,7 @@ public class Edit {
     private static QuestionRemover questionRemover = new QuestionRemover();
     private static Scanner input = new Scanner(System.in);
 
-    private static ArrayList<File> categoryList = categoryReader.readFolder(folderPath);
+    private static ArrayList<File> categoryList = new ArrayList<>();
     private static File category;
 
     /**
@@ -269,6 +269,9 @@ public class Edit {
      * @throws IOException
      */
     public static void startEdit() throws IOException {
+
+        categoryList = categoryReader.readFolder(folderPath);
+
         Util.clear();
         System.out.println("Categories list");
         System.out.println();

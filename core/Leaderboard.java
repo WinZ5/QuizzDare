@@ -172,7 +172,7 @@ public class Leaderboard {
 
         while (!complete) {
             System.out.print("Enter username (Case-Sensitive): ");
-            String username = input.next();
+            String username = input.nextLine();
 
             // If user not found print error message and ask for username again.
             for (User user : userList) {
@@ -206,7 +206,8 @@ public class Leaderboard {
             System.out.print("Choose: ");
 
             try {
-                int operation = input.nextInt();
+                // int operation = input.nextInt();
+                int operation = Integer.parseInt(input.nextLine());
 
                 if (operation == 1) {
                     int amount = askAmount();
@@ -251,7 +252,8 @@ public class Leaderboard {
             System.out.print("Choose: ");
 
             try {
-                int operation = input.nextInt();
+                // int operation = input.nextInt();
+                int operation = Integer.parseInt(input.nextLine());
 
                 if (!(operation <= (categoryList.size() + 1)) && (operation > 0)) {
                     System.out.println("Error: Invalid Input");
