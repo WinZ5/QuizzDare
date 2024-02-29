@@ -64,17 +64,17 @@ public class QuizDare {
 
             inputMenu();
             try {
-                System.out.print("exit to quit the program or home to return to home: ");
+                System.out.print("\"exit\" to quit the program or \"home\" to return to home: ");
                 String user = input.next();
 
                 if (user.toLowerCase().equals("exit")) {
+                    input.close();
                     break;
                 } else if (user.toLowerCase().equals("home")) {
                     continue;
                 } else {
                     System.out.println("Error: Invalid Input");
                 }
-                input.close();
             } catch (InputMismatchException e) {
                 System.out.println("Error: Invalid Input");
                 input.nextLine();
