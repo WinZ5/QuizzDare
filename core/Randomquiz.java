@@ -92,21 +92,25 @@ public class Randomquiz {
         Util.shuffle(questionList);
 
         while (!complete) {
-            for (Question question : questionList) {
+            for (int i = 0; i < questionList.size(); i++) {
                 if (complete) {
                     break;
                 }
 
                 Util.clear();
-                System.out.println(question.getQuestion());
+                System.out.println(questionList.get(i).getQuestion());
                 System.out.println();
-                for (int i = 0; i < question.getChoices().size(); i++) {
-                    char label = (char) ('a' + i);
-                    System.out.printf("%s) %s%n", label, question.getChoices().get(i));
+                for (int j = 0; j < questionList.get(i).getChoices().size(); j++) {
+                    char label = (char) ('a' + j);
+                    System.out.printf("%s) %s%n", label, questionList.get(i).getChoices().get(j));
                 }
                 System.out.println();
 
-                answerQuestion(question);
+                answerQuestion(questionList.get(i));
+            }
+            
+            if (!complete) {
+                endRandomQuiz();
             }
         }
     }
