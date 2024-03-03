@@ -86,6 +86,7 @@ public class Randomquiz {
             }
         }
         complete = false;
+        score = 0;
 
         // Suffle questionList
         Util.shuffle(questionList);
