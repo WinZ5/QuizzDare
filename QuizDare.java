@@ -43,7 +43,7 @@ public class QuizDare {
         }
     }
 
-    public static void main(String[] args) throws FileNotFoundException, IOException {
+    public static void mainMenu() throws FileNotFoundException, IOException { 
         while (true) {
             Util.clear();
 
@@ -80,5 +80,9 @@ public class QuizDare {
                 input.nextLine();
             }
         }
+    }
+
+    public static void main(String[] args) throws FileNotFoundException, IOException {
+        mainMenu();    
     }
 }
