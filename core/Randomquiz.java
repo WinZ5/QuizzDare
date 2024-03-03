@@ -19,7 +19,7 @@ public class Randomquiz {
     private static File folderPath = new File("data" + File.separator + "quiz");
     private static ArrayList<File> categoryList = categoryReader.readFolder(folderPath);
     private static ArrayList<Question> questionList = new ArrayList<>();
-    private static boolean complete = false;
+    private static boolean complete;
     private static int score = 0;
 
     /**
@@ -30,10 +30,13 @@ public class Randomquiz {
      * @throws FileNotFoundException
      * @throws IOException
      */
-    public static void answerQuestion(Question question, String answer)
+    public static void answerQuestion(Question question)
             throws FileNotFoundException, IOException {
 
         while (true) {
+            System.out.print("Answer: ");
+            String answer = input.next();
+
             if ((int) answer.charAt(0) < ('a' + question.getChoices().size())
                     && (int) answer.charAt(0) >= 97) {
                 // If user answer is correct score++ if user answer wrong invoke endRandomQuiz.
@@ -46,6 +49,7 @@ public class Randomquiz {
                 }
             } else {
                 System.out.println("Error: Invalid answer");
+                input.nextLine();
             }
         }
     }
@@ -57,6 +61,7 @@ public class Randomquiz {
      * @throws IOException
      */
     public static void endRandomQuiz() throws FileNotFoundException, IOException {
+        Util.clear();
         System.out.println("Score: " + score);
         System.out.println();
         Leaderboard.showLeaderboard(new File("data" + File.separator + "randomquiz" + File.separator + "score.csv"),
@@ -80,6 +85,7 @@ public class Randomquiz {
                 questionList.add(question);
             }
         }
+        complete = false;
 
         // Suffle questionList
         Util.shuffle(questionList);
@@ -98,10 +104,8 @@ public class Randomquiz {
                     System.out.printf("%s) %s%n", label, question.getChoices().get(i));
                 }
                 System.out.println();
-                System.out.print("Answer: ");
-                String answer = input.next();
 
-                answerQuestion(question, answer);
+                answerQuestion(question);
             }
         }
     }
